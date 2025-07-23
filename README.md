@@ -1,17 +1,46 @@
-### Regras da aplicação
+# Find a Friend API
 
-[x] Deve ser possível cadastrar um pet
-[x] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
-[] Deve ser possível filtrar pets por suas características
-[] Deve ser possível visualizar detalhes de um pet para adoção
-[x] Deve ser possível se cadastrar como uma ORG
-[x] Deve ser possível realizar login como uma ORG
+API para gerenciamento de adoção de pets, onde organizações (ORGs) podem cadastrar pets para adoção, e usuários podem buscar pets disponíveis por cidade.
 
-### Regras de negócio
+---
 
-[] Para listar os pets, obrigatoriamente precisamos informar a cidade
-[x] Uma ORG precisa ter um endereço e um número de WhatsApp
-[x] Um pet deve estar ligado a uma ORG
-[] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
-[] Todos os filtros, além da cidade, são opcionais
-[] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
+## Funcionalidades Implementadas
+
+- [x] Cadastrar um pet
+- [x] Listar todos os pets disponíveis para adoção em uma cidade
+- [x] Cadastro de organizações (ORGs)
+- [x] Login para organizações
+
+## Funcionalidades em Desenvolvimento
+
+- [ ] Filtrar pets por características (idade, porte, etc.)
+- [ ] Visualizar detalhes de um pet para adoção
+- [ ] Contato via WhatsApp entre usuário e ORG
+- [ ] Administração para ORGs logadas
+
+---
+
+## Tecnologias usadas
+
+- Node.js + TypeScript
+- Fastify (API)
+- Prisma (ORM)
+- PostgreSQL (banco de dados)
+- Vitest (testes unitários)
+- Docker (para bancos de dados e ambiente)
+
+---
+
+## Como rodar o projeto localmente
+
+1. Clone o repositório
+2. Configure suas variáveis de ambiente (copie o `.env.example` para `.env` e ajuste)
+3. Rode as migrations com `npm run migrate:dev`
+4. Inicie o servidor com `npm run dev`
+5. Execute testes com `npm run test`
+
+---
+
+## Contato
+
+Deivid Silva — [LinkedIn](https://www.linkedin.com/in/deivid-silva-b82608368/) — [Email](deividsky2015@gmail.com)
