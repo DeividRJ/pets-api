@@ -1,0 +1,37 @@
+generator client {
+    provider = "prisma-client-js" // Gera cliente Prisma para Node.js
+}
+
+datasource db {
+    provider = "postgresql" // Banco usado
+    url      = env("DATABASE_URL") // Usa a variável do .env
+}
+
+model Org {
+    id        String   @id @default(uuid()) // ID único UUID
+    name      String
+    email     String   @unique //Email único
+    password  String //Senha hash
+    whatsapp  String
+    address   String
+    city      String?
+    createdAt DateTime @default(now()) //Data de criação
+
+    pets Pet[]
+
+    @@map("org")
+}
+
+model Pet {
+    id          String   @id @default(uuid())
+    name        String
+    description String?
+    age         Int
+    size        String?
+    adopted     Boolean  @default(false)
+    createdAt   DateTime @default(now())
+    orgId       String?
+    Org         Org?     @relation(fields: [orgId], references: [id])
+
+    @@map("pet")
+}

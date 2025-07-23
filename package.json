@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "@fastify/jwt": "9.1.0",
+    "@prisma/client": "6.12.0",
+    "bcrypt": "6.0.0",
+    "dotenv": "17.2.0",
+    "fastify": "5.4.0",
+    "jsonwebtoken": "9.0.2",
+    "prisma": "6.12.0",
+    "zod": "3.25.64"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "5.0.2",
+    "@types/jsonwebtoken": "9.0.10",
+    "@types/node": "24.0.14",
+    "cross-env": "7.0.3",
+    "ts-node-dev": "2.0.0",
+    "tsx": "4.20.3",
+    "typescript": "5.8.3",
+    "vitest": "3.2.4"
+  },
+  "name": "find-a-friend-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env DATABASE_URL=$DATABASE_URL_DEV NODE_ENV=development ts-node-dev src/server.ts",
+    "test": "cross-env DATABASE_URL=$DATABASE_URL_TEST NODE_ENV=test vitest",
+    "migrate:dev": "cross-env DATABASE_URL=$DATABASE_URL_DEV npx prisma migrate dev",
+    "migrate:test": "cross-env DATABASE_URL=$DATABASE_URL_TEST npx prisma migrate dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

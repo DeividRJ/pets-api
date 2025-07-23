@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15   # Usa imagem oficial do PostgreSQL versão 15
+    container_name: pets_postgres # Nome do container
+    restart: always
+    ports:
+      - '5432:5432' # Mapeia a porta do host para o container
+    environment: # Variáveis de ambiente para criar o banco
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: petsdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persistência de dados
+
+volumes:
+  postgres_data:  # Volume nomeado

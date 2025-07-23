@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# Prisma artefatos
+.prisma/
+prisma/dev.db
+
+# Ambiente
+.env
+.env.*  
+
+# Log & output
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# Build
+dist/
+build/
