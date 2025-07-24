@@ -23,10 +23,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env DATABASE_URL=$DATABASE_URL_DEV NODE_ENV=development ts-node-dev src/server.ts",
-    "test": "cross-env DATABASE_URL=$DATABASE_URL_TEST NODE_ENV=test vitest",
-    "migrate:dev": "cross-env DATABASE_URL=$DATABASE_URL_DEV npx prisma migrate dev",
-    "migrate:test": "cross-env DATABASE_URL=$DATABASE_URL_TEST npx prisma migrate dev"
+    "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
+    "test": "cross-env NODE_ENV=test vitest",
+    "migrate:dev": "cross-env NODE_ENV=development npx prisma migrate dev",
+    "migrate:test": "cross-env NODE_ENV=test npx prisma migrate dev",
+    "studio:dev": "cross-env NODE_ENV=development prisma studio",
+    "studio:test": "cross-env NODE_ENV=test prisma studio"
   },
   "keywords": [],
   "author": "",

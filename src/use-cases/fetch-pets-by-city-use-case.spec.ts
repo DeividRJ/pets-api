@@ -26,8 +26,8 @@ describe('FetchPetsByCityUseCase', () => {
         })
 
         // Obs: no InMemory, os pets não têm city real — então pra teste real
-        // você precisaria garantir que o filtro faz sentido.
-        // Aqui simula: considere todos disponíveis na cidade X
+        // Precisaria garantir que o filtro faz sentido.
+        // Simulação: considere todos disponíveis na cidade X
 
         const result = await fetchPetsByCityUseCase.execute({
             city: 'Cidade Teste',

@@ -8,4 +8,11 @@ export interface PetsRepository {
     }): Promise<Pet>
 
     findManyByCity(city: string): Promise<Pet[]>
+
+    findManyByDescription(
+        name?: string,
+        age?: number,
+        description?: string,
+        size?: string
+    ): Promise<Pet[]>
 }

@@ -1,5 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { Pet, PrismaClient } from "@prisma/client";
 import { PetsRepository } from "../interfaces/pets-repository";
+import { string } from "zod";
 
 
 
@@ -33,6 +34,37 @@ export class PrismaPetRepository implements PetsRepository {
                 },
             },
         })
+    }
+
+    async findManyByDescription(
+        name?: string,
+        age?: number,
+        description?: string,
+        size?: string
+    ): Promise<Pet[]> {
+        return prisma.pet.findMany({
+            where: {
+                ...(name && {
+                    name: {
+                        contains: name,
+                        mode: 'insensitive',
+                    },
+                }),
+                ...(age && { age }),
+                ...(description && {
+                    description: {
+                        contains: description,
+                        mode: 'insensitive',
+                    },
+                }),
+                ...(size && {
+                    size: {
+                        equals: size,
+                        mode: 'insensitive',
+                    },
+                }),
+            },
+        });
     }
 }
 
