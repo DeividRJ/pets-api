@@ -1,5 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { z } from 'zod'
+import { z } from 'zod';
+// importar prisma singleton
+import { prisma } from "../../lib/prisma";
 import { PrismaPetRepository } from "../../repositories/prisma/prisma-pet-respository";
 import { FetchPetsByCityUseCase } from "../../use-cases/fetch-pets-by-city-use-case";
 import { normalizeCity } from "../../utils/normalize-city";
@@ -10,17 +12,15 @@ export async function fetchPetsByCityController(
 ) {
     const querySchema = z.object({
         city: z.string(),
-    })
+    });
 
     let { city } = querySchema.parse(request.query);
-
     city = normalizeCity(city);
 
-    const petRepository = new PrismaPetRepository();
+    const petRepository = new PrismaPetRepository(prisma);
     const fetchPetsByCityUseCase = new FetchPetsByCityUseCase(petRepository);
-
 
     const { pets } = await fetchPetsByCityUseCase.execute({ city });
 
-    return reply.status(200).send({ pets })
+    return reply.status(200).send({ pets });
 }

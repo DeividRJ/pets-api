@@ -16,7 +16,7 @@ API para gerenciamento de adoção de pets, onde organizações (ORGs) podem cad
 - [x] Filtrar pets por características (idade, porte, etc.)
 - [x] Visualizar detalhes de um pet para adoção
 - [x] Contato via WhatsApp entre usuário e ORG
-- [ ] Administração para ORGs logadas
+- [x] Administração para ORGs logadas
 
 ---
 
@@ -38,6 +38,29 @@ API para gerenciamento de adoção de pets, onde organizações (ORGs) podem cad
 3. Rode as migrations com `npm run migrate:dev`
 4. Inicie o servidor com `npm run dev`
 5. Execute testes com `npm run test`
+
+
+
+## demais comandos :
+
+# Desenvolvimento
+npm run dev
+
+# Criar migrations para o banco de desenvolvimento
+npm run migrate:dev
+
+# Criar migrations no banco de teste
+npm run migrate:test
+
+# Rodar testes
+npm run test
+
+# Rodar testes E2E
+npm run test:e2e
+
+# Acessar o banco via Prisma Studio
+npm run studio:dev
+npm run studio:test
 
 ---
 

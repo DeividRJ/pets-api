@@ -7,6 +7,11 @@ datasource db {
     url      = env("DATABASE_URL") // Usa a variável do .env
 }
 
+enum Role {
+    ORG
+    ADMIN
+}
+
 model Org {
     id        String   @id @default(uuid()) // ID único UUID
     name      String
@@ -16,6 +21,8 @@ model Org {
     address   String
     city      String?
     createdAt DateTime @default(now()) //Data de criação
+
+    role Role @default(ORG)
 
     pets Pet[]
 
@@ -30,8 +37,8 @@ model Pet {
     size        String?
     adopted     Boolean  @default(false)
     createdAt   DateTime @default(now())
-    orgId       String?
-    Org         Org?     @relation(fields: [orgId], references: [id])
+    orgId       String
+    Org         Org      @relation(fields: [orgId], references: [id])
 
     @@map("pet")
 }

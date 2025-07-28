@@ -1,7 +1,6 @@
 import { PrismaOrgsRepository } from "../repositories/prisma/prisma-orgs-repository";
 import { compare } from '../utils/hash'
 
-
 // Caso de uso → login da ORG
 export class AuthenticateOrgUseCase {
     constructor(private orgsRepository: PrismaOrgsRepository) { }
@@ -11,18 +10,16 @@ export class AuthenticateOrgUseCase {
         const org = await this.orgsRepository.findByEmail(email)
 
         if (!org) {
-            throw new Error('invalid Credentials') // Não encontrou? Erro!
+            throw new Error('Invalid credentials') // Consistente e com a primeira letra maiúscula
         }
 
         // Compara senha
-        const passwordMatches = await compare(password, org.password) // Senha errada? Erro!
+        const passwordMatches = await compare(password, org.password)
 
         if (!passwordMatches) {
-            throw new Error('invalid crentials')
+            throw new Error('Invalid credentials')
         }
 
         return { org } // Retorna ORG para gerar JWT depois
     }
-
-
 }

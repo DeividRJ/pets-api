@@ -1,15 +1,12 @@
-import { Pet, PrismaClient } from "@prisma/client";
+import { prisma } from '../../lib/prisma'
+import { Pet } from "@prisma/client";
 import { PetsRepository } from "../interfaces/pets-repository";
-import { string } from "zod";
-
-
-
-const prisma = new PrismaClient()
-
 
 export class PrismaPetRepository implements PetsRepository {
+    constructor(private prismaClient = prisma) { }
+
     async create(data: { name: string; age: number; orgId: string }) {
-        return prisma.pet.create({
+        return this.prismaClient.pet.create({
             data: {
                 name: data.name,
                 age: data.age,
@@ -19,21 +16,21 @@ export class PrismaPetRepository implements PetsRepository {
                     },
                 },
             },
-        })
+        });
     }
 
     async findManyByCity(city: string) {
-        return prisma.pet.findMany({
+        return this.prismaClient.pet.findMany({
             where: {
                 adopted: false,
                 Org: {
                     city: {
                         equals: city,
-                        mode: 'insensitive', // <- faz a mágica case-insensitive
+                        mode: 'insensitive',
                     },
                 },
             },
-        })
+        });
     }
 
     async findManyByDescription(
@@ -42,7 +39,7 @@ export class PrismaPetRepository implements PetsRepository {
         description?: string,
         size?: string
     ): Promise<Pet[]> {
-        return prisma.pet.findMany({
+        return this.prismaClient.pet.findMany({
             where: {
                 ...(name && {
                     name: {
@@ -67,5 +64,3 @@ export class PrismaPetRepository implements PetsRepository {
         });
     }
 }
-
-

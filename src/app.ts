@@ -7,3 +7,5 @@ import { petRoutes } from "./routes/pet.routes";
 server.register(orgRoutes)
 server.register(sessionsRoutes)
 server.register(petRoutes)
+
+export { server }

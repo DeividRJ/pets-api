@@ -41,3 +41,5 @@ export const server = Fastify({
 server.register(fastifyJwt, {
     secret: process.env.JWT_SECRET!,
 })
+
+console.log('Conectando no banco:', databaseUrl)

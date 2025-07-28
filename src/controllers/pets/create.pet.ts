@@ -1,32 +1,38 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { z } from 'zod'
+import { z } from 'zod';
+// Importa o prisma singleton, ajuste o caminho conforme seu projeto
+import { prisma } from '../../lib/prisma';
 import { PrismaPetRepository } from "../../repositories/prisma/prisma-pet-respository";
 import { CreatePetUseCase } from "../../use-cases/create-pet-use-case";
 
-
-// Controller → recebe a requisição HTTP e orquestra
 export async function createPetController(request: FastifyRequest, reply: FastifyReply) {
-    // Validação do body usando Zod
     const createPetSchema = z.object({
         name: z.string(),
         age: z.number(),
-        orgId: z.string(),
-    })
+    });
 
-    // Faz parse e valida
-    const { name, age, orgId } = createPetSchema.parse(request.body)
+    const { name, age } = createPetSchema.parse(request.body);
 
-    // Cria instância do repositório e do caso de uso
-    const petRepository = new PrismaPetRepository()
-    const createPetUseCase = new CreatePetUseCase(petRepository)
+    const user = request.user as { sub: string; role: 'ORG' | 'ADMIN' };
+    const orgId = user?.sub;
 
-    // Executa o caso de uso
-    await createPetUseCase.execute({
-        name,
-        age,
-        orgId,
-    })
+    if (!orgId) {
+        return reply.status(401).send({ error: 'Unauthorized' });
+    }
 
-    return reply.status(201).send()
+    const petRepository = new PrismaPetRepository(prisma);
+    const createPetUseCase = new CreatePetUseCase(petRepository);
+
+    try {
+        const { pet } = await createPetUseCase.execute({
+            name,
+            age,
+            orgId,
+        });
+
+        return reply.status(201).send({ pet });
+    } catch (error) {
+        console.error('❌ Erro ao criar pet:', error);
+        return reply.status(500).send({ error: 'Erro interno ao criar pet' });
+    }
 }
-

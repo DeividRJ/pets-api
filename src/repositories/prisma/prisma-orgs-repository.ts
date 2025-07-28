@@ -10,6 +10,7 @@ export class PrismaOrgsRepository implements OrgsRepository {
         whatsapp: string,
         address: string,
         city: string,
+
     }) {
         // Cria ORG no banco
         return prisma.org.create({

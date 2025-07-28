@@ -1,5 +1,13 @@
 {
-    "compilerOptions": {
-        "esModuleInterop": true
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
     }
+  },
+  "include": ["src"]
 }
