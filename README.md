@@ -14,8 +14,8 @@ API para gerenciamento de adoção de pets, onde organizações (ORGs) podem cad
 ## Funcionalidades em Desenvolvimento
 
 - [x] Filtrar pets por características (idade, porte, etc.)
-- [ ] Visualizar detalhes de um pet para adoção
-- [ ] Contato via WhatsApp entre usuário e ORG
+- [x] Visualizar detalhes de um pet para adoção
+- [x] Contato via WhatsApp entre usuário e ORG
 - [ ] Administração para ORGs logadas
 
 ---
