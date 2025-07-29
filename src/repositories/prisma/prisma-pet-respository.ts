@@ -5,32 +5,26 @@ import { PetsRepository } from "../interfaces/pets-repository";
 export class PrismaPetRepository implements PetsRepository {
     constructor(private prismaClient = prisma) { }
 
-    async create(data: { name: string; age: number; orgId: string }) {
+    async create(data: {
+        name: string;
+        age: number;
+        orgId: string;
+        description?: string | null;
+        size?: string | null;
+    }): Promise<Pet> {
         return this.prismaClient.pet.create({
             data: {
                 name: data.name,
                 age: data.age,
-                Org: {
-                    connect: {
-                        id: data.orgId,
-                    },
-                },
+                description: data.description ?? null,
+                size: data.size ?? null,
+                orgId: data.orgId, // Supondo que a FK está como orgId simples e não via relação, ajuste conforme seu schema
             },
         });
     }
 
-    async findManyByCity(city: string) {
-        return this.prismaClient.pet.findMany({
-            where: {
-                adopted: false,
-                Org: {
-                    city: {
-                        equals: city,
-                        mode: 'insensitive',
-                    },
-                },
-            },
-        });
+    async findAll(): Promise<Pet[]> {
+        return this.prismaClient.pet.findMany();
     }
 
     async findManyByDescription(
@@ -41,6 +35,7 @@ export class PrismaPetRepository implements PetsRepository {
     ): Promise<Pet[]> {
         return this.prismaClient.pet.findMany({
             where: {
+                adopted: false,
                 ...(name && {
                     name: {
                         contains: name,
