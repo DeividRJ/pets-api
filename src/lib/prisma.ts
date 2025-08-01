@@ -1,30 +1,19 @@
 import { PrismaClient } from '@prisma/client'
-import dotenv from 'dotenv'
-import path from 'path'
 
-// Carrega o .env correto conforme NODE_ENV (padrão: .env)
-const envFile = process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
-dotenv.config({ path: path.resolve(process.cwd(), envFile) })
+// Aqui assumimos que as variáveis já foram carregadas no ambiente (ex: vitest.setup.ts ou server.ts)
 
-const databaseUrl =
-    process.env.NODE_ENV === 'test'
-        ? process.env.DATABASE_URL_TEST
-        : process.env.NODE_ENV === 'development'
-            ? process.env.DATABASE_URL_DEV
-            : process.env.DATABASE_URL_PROD
+const databaseUrl = process.env.DATABASE_URL
 
 if (!databaseUrl) {
-    throw new Error('DATABASE_URL não definida para o ambiente atual!')
+  throw new Error('❌ DATABASE_URL não definida!')
 }
 
 console.log('🌐 DATABASE_URL usada pelo Prisma:', databaseUrl)
 
 export const prisma = new PrismaClient({
-    datasources: {
-        db: {
-            url: databaseUrl,
-        },
+  datasources: {
+    db: {
+      url: databaseUrl,
     },
+  },
 })
-
-

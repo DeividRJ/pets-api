@@ -1,45 +1,24 @@
-import Fastify from "fastify"
-import fastifyJwt from '@fastify/jwt'
 import dotenv from 'dotenv'
-import { PrismaClient } from '@prisma/client'
+import path from 'path'
 
-// Carrega variáveis do .env para process.env
-dotenv.config()
+// Carrega .env correto baseado no NODE_ENV
+const envFile = process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+dotenv.config({ path: path.resolve(process.cwd(), envFile) })
 
-// Verifica se o JWT_SECRET está definido
+import Fastify from 'fastify'
+import fastifyJwt from '@fastify/jwt'
+import { prisma } from '../lib/prisma' // ajustar caminho
+
 if (!process.env.JWT_SECRET) {
-    throw new Error("JWT_SECRET não está definido no .env")
+  throw new Error("JWT_SECRET não está definido no .env")
 }
 
-// Decide qual URL de banco usar conforme o ambiente
-const databaseUrl =
-    process.env.NODE_ENV === 'test'
-        ? process.env.DATABASE_URL_TEST
-        : process.env.NODE_ENV === 'development'
-            ? process.env.DATABASE_URL_DEV
-            : process.env.DATABASE_URL_PROD
+const server = Fastify({ logger: true })
 
-if (!databaseUrl) {
-    throw new Error("DATABASE_URL não está definida para o ambiente atual!")
-}
-
-// Instancia o Prisma com a URL correta
-export const prisma = new PrismaClient({
-    datasources: {
-        db: {
-            url: databaseUrl,
-        },
-    },
-})
-
-// Cria a instância do Fastify
-export const server = Fastify({
-    logger: true,
-})
-
-// Registra o plugin JWT com o segredo do .env
 server.register(fastifyJwt, {
-    secret: process.env.JWT_SECRET!,
+  secret: process.env.JWT_SECRET!,
 })
 
-console.log('Conectando no banco:', databaseUrl)
+console.log('Conectando no banco:', process.env.DATABASE_URL)
+
+export { server, prisma }

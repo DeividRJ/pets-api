@@ -3,6 +3,7 @@ import { z } from 'zod';
 // importar prisma singleton
 import { prisma } from "../../lib/prisma";
 import { PrismaPetRepository } from "../../repositories/prisma/prisma-pet-respository";
+import { PrismaOrgsRepository } from "../../repositories/prisma/prisma-orgs-repository";
 import { FetchPetsByCityUseCase } from "../../use-cases/fetch-pets-by-city-use-case";
 import { normalizeCity } from "../../utils/normalize-city";
 
@@ -18,7 +19,9 @@ export async function fetchPetsByCityController(
     city = normalizeCity(city);
 
     const petRepository = new PrismaPetRepository(prisma);
-    const fetchPetsByCityUseCase = new FetchPetsByCityUseCase(petRepository);
+    const orgsRepository = new PrismaOrgsRepository();  // <-- sem parâmetro
+
+    const fetchPetsByCityUseCase = new FetchPetsByCityUseCase(petRepository, orgsRepository);
 
     const { pets } = await fetchPetsByCityUseCase.execute({ city });
 

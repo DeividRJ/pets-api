@@ -28,10 +28,10 @@ export class InMemoryOrgsRepository implements OrgsRepository {
   }
 
   async findByEmail(email: string): Promise<Org | null> {
-    return this.items.find((org) => org.email === email) || null
+    return this.items.find(org => org.email === email) || null
   }
 
   async findById(id: string): Promise<Org | null> {
-    return this.items.find((org) => org.id === id) || null
+    return this.items.find(org => org.id === id) || null
   }
 }

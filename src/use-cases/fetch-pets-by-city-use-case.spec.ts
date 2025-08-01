@@ -15,6 +15,7 @@ describe('FetchPetsByCityUseCase', () => {
   })
 
   it('should list all pets available in a city', async () => {
+    // Criar orgs para duas cidades diferentes
     const org1 = await orgsRepository.create({
       name: 'Org São Paulo',
       email: 'sp@example.com',
@@ -42,6 +43,7 @@ describe('FetchPetsByCityUseCase', () => {
       city: 'Rio de Janeiro',
     })
 
+    // Criar pets vinculados a essas orgs
     await petsRepository.create({
       name: 'Billy',
       age: 3,
@@ -60,10 +62,12 @@ describe('FetchPetsByCityUseCase', () => {
       orgId: org3.id,
     })
 
+    // Executar use case para filtrar pets por cidade
     const result = await fetchPetsByCityUseCase.execute({
       city: 'São Paulo',
     })
 
+    // Verificar se retornou os pets corretos
     expect(result.pets).toHaveLength(2)
     expect(result.pets).toEqual(
       expect.arrayContaining([

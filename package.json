@@ -25,10 +25,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
-    "test:prepare": "cross-env NODE_ENV=test npx prisma migrate reset --force --skip-seed",
     "test": "cross-env NODE_ENV=test vitest run --dir src/use-cases",
-    "test:e2e": "npm run test:prepare && cross-env NODE_ENV=test vitest run --dir src/controllers",
-    "migrate:dev": "cross-env NODE_ENV=development npx prisma migrate dev",
+    "test:e2e": "cross-env NODE_ENV=test vitest run --dir src/controllers",
     "studio:dev": "cross-env NODE_ENV=development prisma studio",
     "studio:test": "cross-env NODE_ENV=test prisma studio",
     "test:check-env": "cross-env NODE_ENV=test tsx src/lib/prisma.ts"

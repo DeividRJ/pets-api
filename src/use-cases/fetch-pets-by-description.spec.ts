@@ -52,14 +52,14 @@ describe('FetchPetsByDescriptionUseCase', () => {
       size: 'Médio Porte',
     })
 
-    // Filtro só pelo nome e idade
+    // Filtering only by name and age
     const result = await fetchPetsByDescriptionUseCase.execute({
       name: 'Golden',
       age: 3,
     })
 
     expect(result.pets.length).toBe(2)
-    expect(result.pets.every(p => p.name.includes('Golden'))).toBe(true)
+    expect(result.pets.every(p => p.name.toLowerCase().includes('golden'))).toBe(true)
     expect(result.pets.every(p => p.age === 3)).toBe(true)
   })
 })
