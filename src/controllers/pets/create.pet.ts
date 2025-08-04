@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from 'zod';
-// Importa o prisma singleton, ajuste o caminho conforme seu projeto
 import { prisma } from '../../lib/prisma';
 import { PrismaPetRepository } from "../../repositories/prisma/prisma-pet-respository";
 import { CreatePetUseCase } from "../../use-cases/create-pet-use-case";
